@@ -42,6 +42,7 @@ img{
 
 .enemies{
     text-align: center;
+    display: flex;
 }
 
 #enemytitle{
