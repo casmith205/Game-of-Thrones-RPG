@@ -1,9 +1,4 @@
-// When the game starts, the player will choose a character by clicking on the fighter's picture. 
-// The player will fight as that character for the rest of the game.
-        // The player must then defeat all of the remaining fighters. 
-        // Enemies should be moved to a different area of the screen.
-// The player chooses an opponent by clicking on an enemy's picture.
-// Once the player selects an opponent, that enemy is moved to a defender area.
+
 // The player will now be able to click the attack button.
 // Whenever the player clicks attack, their character damages the defender. 
 // The opponent will lose HP (health points). These points are displayed at the bottom of the defender's picture. 
@@ -20,7 +15,7 @@ $(document).ready(function() {
 // DEFINING VARIABLES
 var character;
 var characterChosen;
-var defenderChosen = " ";
+var defenderChosen;
 var winBattle = false;
 var defeated = false;
 
@@ -110,34 +105,30 @@ $(".characters").on("click", "#cersei-button", function(){
 
 
 // What happens when you click enemies to be the defender
-console.log(defenderChosen);
-if(defenderChosen=" "){
-    $(".enemies").on("click","#jonSnow-button", function(){
-        $("#jonSnow-button").appendTo(".defender");
-        defenderChosen = jonSnow;
-    });
-};
+$(".enemies").on("click","#jonSnow-button", function(){
+    defenderChosen = jonSnow;
+    console.log(defenderChosen);
+    $("#jonSnow-button").appendTo(".defender");
+    
+});
 
-if(defenderChosen=" "){
-    $(".enemies").on("click","#nightKing-button", function(){
-        $("#nightKing-button").appendTo(".defender");
-        defenderChosen = nightKing;
-    });
-} else {};
+$(".enemies").on("click","#nightKing-button", function(){
+    defenderChosen = nightKing;
+    $("#nightKing-button").appendTo(".defender");
 
-if(defenderChosen=" "){
-    $(".enemies").on("click","#hound-button", function(){
-        $("#hound-button").appendTo(".defender");
-        defenderChosen = hound;
-    });
-};
+});
 
-if(defenderChosen=" "){
-    $(".enemies").on("click","#cersei-button", function(){
-        $("#cersei-button").appendTo(".defender");
-        defenderChosen = cersei;
-    });
-};
+$(".enemies").on("click","#hound-button", function(){
+    defenderChosen = hound;
+    $("#hound-button").appendTo(".defender");
+
+});
+
+$(".enemies").on("click","#cersei-button", function(){
+    defenderChosen = cersei;
+    $("#cersei-button").appendTo(".defender");
+
+});
 
 
 
@@ -146,4 +137,5 @@ if(defenderChosen=" "){
 // DEFINING FUNCTIONS
 
 // Create a function to determine a winner
+// create a function to add
 
