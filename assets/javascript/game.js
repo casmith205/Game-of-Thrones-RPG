@@ -20,8 +20,8 @@ $(document).ready(function() {
 // DEFINING VARIABLES
 var character;
 var characterChosen;
-var enemyChosen = false;
-var opponent;
+var defenderChosen = " ";
+var winBattle = false;
 var defeated = false;
 
 var jonSnow = { 
@@ -66,42 +66,84 @@ console.log(enemyCount);
 // ON CLICK
 
 // What happens when you click jon-Snow button in Characters
+    // potential way to shorten this:
+    // $(".characters").on("click", characterChosen, function(){
+    //     for(i=0; i<characters.length, i++) {
+    //         if(character[i]!==characterChosen){
+    //         $(""#" + character[i] + "-button"").appendTo(".enemies");
+    //         };
+
 $(".characters").on("click", "#jonSnow-button", function(){
     $("#nightKing-button").appendTo(".enemies");
     $("#hound-button").appendTo(".enemies");
     $("#cersei-button").appendTo(".enemies");
+    characterChosen=jonSnow;
+    console.log(characterChosen);
 });
     
 
 // What happens when you click night-King button
 $(".characters").on("click", "#nightKing-button", function(){
-        $("#jonSnow-button").appendTo(".enemies");
-        $("#hound-button").appendTo(".enemies");
-        $("#cersei-button").appendTo(".enemies");
+    $("#jonSnow-button").appendTo(".enemies");
+    $("#hound-button").appendTo(".enemies");
+    $("#cersei-button").appendTo(".enemies");
+    characterChosen=nightKing;
         
 });
     
 // What happens when you click hound button
 $(".characters").on("click", "#hound-button", function(){
-        $("#jonSnow-button").appendTo(".enemies");
-        $("#nightKing-button").appendTo(".enemies");
-        $("#cersei-button").appendTo(".enemies");
+    $("#jonSnow-button").appendTo(".enemies");
+    $("#nightKing-button").appendTo(".enemies");
+    $("#cersei-button").appendTo(".enemies");
+    characterChosen=hound;
     
 });
     
 // What happens when you click cersei button
 $(".characters").on("click", "#cersei-button", function(){
-        $("#jonSnow-button").appendTo(".enemies");
-        $("#nightKing-button").appendTo(".enemies");
-        $("#hound-button").appendTo(".enemies");  
+    $("#jonSnow-button").appendTo(".enemies");
+    $("#nightKing-button").appendTo(".enemies");
+    $("#hound-button").appendTo(".enemies");
+    characterChosen=cersei;
 });
+
+
+// What happens when you click enemies to be the defender
+console.log(defenderChosen);
+if(defenderChosen=" "){
+    $(".enemies").on("click","#jonSnow-button", function(){
+        $("#jonSnow-button").appendTo(".defender");
+        defenderChosen = jonSnow;
+    });
+};
+
+if(defenderChosen=" "){
+    $(".enemies").on("click","#nightKing-button", function(){
+        $("#nightKing-button").appendTo(".defender");
+        defenderChosen = nightKing;
+    });
+} else {};
+
+if(defenderChosen=" "){
+    $(".enemies").on("click","#hound-button", function(){
+        $("#hound-button").appendTo(".defender");
+        defenderChosen = hound;
+    });
+};
+
+if(defenderChosen=" "){
+    $(".enemies").on("click","#cersei-button", function(){
+        $("#cersei-button").appendTo(".defender");
+        defenderChosen = cersei;
+    });
+};
+
+
 
 });
 
 // DEFINING FUNCTIONS
-function pickCharcter (a, b, c, d){
-    $(b).appendTo(".enemies");
-    $(c).appendTo(".enemies");
-    $(d).appendTo(".enemies");
-};
+
+// Create a function to determine a winner
 
