@@ -16,27 +16,36 @@
 // The player wins the game by defeating all enemy characters. 
 // The player loses the game the game if their character's HP falls to zero or below.
 
+$(document).ready(function() {
 // DEFINING VARIABLES
+var character;
+var characterChosen;
+var enemyChosen = false;
+var opponent;
+var defeated = false;
+
 var jonSnow = { 
     name: "Jon Snow",
     healthPoints: 100,
     attackPower: 90,
-    counterAttackPower: 50
+    counterAttackPower: 50,
+    imgUrl: "assets/images/jonSnow.jpg"
 };
 
 var nightKing = {
     name: "The Night King",
     healthPoints: 110,
     attackPower: 100,
-    counterAttackPower:100
-
+    counterAttackPower:100,
+    imgUrl: "assets/images/nightKing.jpg"
 };
 
 var hound = {
     name: "The Hound",
     healthPoints: 90,
     attackPower: 80,
-    counterAttackPower: 80
+    counterAttackPower: 80,
+    imgUrl: "assets/images/hound.jpg"
 
 };
 
@@ -44,47 +53,55 @@ var cersei = {
     name: "Cersei Lannister",
     healthPoints: 80,
     attackPower: 70,
-    counterAttackPower: 60
+    counterAttackPower: 60,
+    imgUrl: "assets/images/cersei.jpg"
 
 };
 
 var characters = [jonSnow, nightKing, hound, cersei];
 console.log(characters);
-// ON CLICK
-$(document).ready(function() {
-    // What happens when you click jon-Snow button
-    $("#jonSnow-button").on("click", function(){
-        $("#nightKing-button").appendTo(".enemies");
-        $("#hound-button").appendTo(".enemies");
-        $("#cersei-button").appendTo(".enemies");
-    });
 
-    // What happens when you click night-King button
-    $("#nightKing-button").on("click", function(){
+var enemyCount = (characters.length - 1); 
+console.log(enemyCount);
+// ON CLICK
+
+// What happens when you click jon-Snow button in Characters
+$(".characters").on("click", "#jonSnow-button", function(){
+    $("#nightKing-button").appendTo(".enemies");
+    $("#hound-button").appendTo(".enemies");
+    $("#cersei-button").appendTo(".enemies");
+});
+    
+
+// What happens when you click night-King button
+$(".characters").on("click", "#nightKing-button", function(){
         $("#jonSnow-button").appendTo(".enemies");
         $("#hound-button").appendTo(".enemies");
         $("#cersei-button").appendTo(".enemies");
         
-    });
+});
     
-    // What happens when you click hound button
-    $("#hound-button").on("click", function(){
+// What happens when you click hound button
+$(".characters").on("click", "#hound-button", function(){
         $("#jonSnow-button").appendTo(".enemies");
         $("#nightKing-button").appendTo(".enemies");
         $("#cersei-button").appendTo(".enemies");
     
-    });
+});
     
-        // What happens when you click cersei button
-    $("#cersei-button").on("click", function(){
+// What happens when you click cersei button
+$(".characters").on("click", "#cersei-button", function(){
         $("#jonSnow-button").appendTo(".enemies");
         $("#nightKing-button").appendTo(".enemies");
-        $("#hound-button").appendTo(".enemies");
-        
-        
-    });
+        $("#hound-button").appendTo(".enemies");  
+});
 
 });
 
 // DEFINING FUNCTIONS
+function pickCharcter (a, b, c, d){
+    $(b).appendTo(".enemies");
+    $(c).appendTo(".enemies");
+    $(d).appendTo(".enemies");
+};
 
