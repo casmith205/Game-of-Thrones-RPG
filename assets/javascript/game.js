@@ -18,12 +18,14 @@
 
 // DEFINING VARIABLES
 var jonSnow = { 
+    name: "Jon Snow",
     healthPoints: 100,
     attackPower: 90,
     counterAttackPower: 50
 };
 
 var nightKing = {
+    name: "The Night King",
     healthPoints: 110,
     attackPower: 100,
     counterAttackPower:100
@@ -31,6 +33,7 @@ var nightKing = {
 };
 
 var hound = {
+    name: "The Hound",
     healthPoints: 90,
     attackPower: 80,
     counterAttackPower: 80
@@ -38,12 +41,15 @@ var hound = {
 };
 
 var cersei = {
+    name: "Cersei Lannister",
     healthPoints: 80,
     attackPower: 70,
     counterAttackPower: 60
 
 };
 
+var characters = [jonSnow, nightKing, hound, cersei];
+console.log(characters);
 // ON CLICK
 $(document).ready(function() {
     // What happens when you click jon-Snow button

@@ -1,0 +1,49 @@
+body{
+    margin: 20px;
+}
+
+img{
+    width: 200px;
+    height: 100px;
+}
+
+.buttons{
+    text-align: center;
+    display: flex;
+}
+
+#jonSnow-button{
+    padding: 10px;
+    margin : 10px;
+    border:solid thick grey;
+    width: 250px;
+}
+
+#nightKing-button{
+    padding: 10px;
+    margin : 10px;
+    border:solid thick grey;
+    width: 250px;
+}
+
+#hound-button{
+    padding: 10px;
+    margin : 10px;
+    border:solid thick grey;
+    width: 250px;
+}
+
+#cersei-button{
+    padding: 10px;
+    margin : 10px;
+    border:solid thick grey;
+    width: 250px;
+}
+
+.enemies{
+    text-align: center;
+}
+
+#enemytitle{
+    text-align: left;
+}
