@@ -48,21 +48,33 @@ var cersei = {
 $(document).ready(function() {
     // What happens when you click jon-Snow button
     $("#jonSnow-button").on("click", function(){
-        
+        $("#nightKing-button").appendTo(".enemies");
+        $("#hound-button").appendTo(".enemies");
+        $("#cersei-button").appendTo(".enemies");
     });
 
     // What happens when you click night-King button
     $("#nightKing-button").on("click", function(){
+        $("#jonSnow-button").appendTo(".enemies");
+        $("#hound-button").appendTo(".enemies");
+        $("#cersei-button").appendTo(".enemies");
         
     });
     
     // What happens when you click hound button
     $("#hound-button").on("click", function(){
+        $("#jonSnow-button").appendTo(".enemies");
+        $("#nightKing-button").appendTo(".enemies");
+        $("#cersei-button").appendTo(".enemies");
     
     });
     
         // What happens when you click cersei button
     $("#cersei-button").on("click", function(){
+        $("#jonSnow-button").appendTo(".enemies");
+        $("#nightKing-button").appendTo(".enemies");
+        $("#hound-button").appendTo(".enemies");
+        
         
     });
 
