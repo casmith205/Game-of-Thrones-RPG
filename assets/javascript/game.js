@@ -5,7 +5,7 @@ var characterChosen;
 var defenderExists = false;
 var defenderChosen;
 var winBattle = false;
-var defeated = false;
+var winGame = false;
 
 var jonSnow = { 
     name: "Jon Snow",
@@ -92,32 +92,32 @@ console.log(enemyCount);
         };
     });
 
-$("#attack-btn").on("click", function(){
+// What to do when the attack button is clicked
+$("#attack-btn").on("click", function(x){
     if(characterChosen.healthPoints > 0 && defenderChosen.healthPoints > 0) {
         attack(characterChosen, defenderChosen);
     };
-    
-    if (characterChosen.healthPoints <= 0) {
-        console.log("hi");
-        $(".defender").html("You were defeated by " + defenderChosen.name + ". Reset the game to play again");
+
+    if(characterChosen.healthPoints <= 0) {
+        $(characterChosen.buttonId).fadeOut();
+        $(".defender").append("You were defeated by " + defenderChosen.name + ". Reset the game to play again")
     };
 
     
     if (defenderChosen.healthPoints <= 0 && enemyCount > 0) {
-        console.log("bich");
         defenderExists = false;
         enemyCount --;
-        $(".defender").text("You defeated " + defenderChosen.name + ". Please choose another defender!");
+        $(defenderChosen.buttonId).fadeOut();
+        $(".defender").append("You defeated " + defenderChosen.name + ". Please choose another defender!");
     } else if (defenderChosen.healthPoints <= 0 && enemyCount <= 0) {
-        console.log("lol");
-        $(".defender").text("You defeated all of your enemies! Reset the game to play again");
-    }
+        $(defenderChosen.buttonId).fadeOut();
+        $(".defender").append("You defeated all of your enemies! Reset the game to play again");
+    };
 });
 
+// What to do when the reset button is clicked 
 $("#reset-btn").on("click", function(){
     gameReset();
-});
-
 });
 
 // DEFINING FUNCTIONS
@@ -131,11 +131,16 @@ function attack (characterChosen, defenderChosen) {
 };
 
 
+
 function gameReset () {
     defenderChosen = null;
     characterChosen = null;
     defenderExists = false;
     playerChoseChar = false;
-    $(".buttons").appendTo(".characters");
     $(".defender").text("");
+    enemyCount = (characters.length - 1);
+    $(".buttons").fadeIn();
+    $(".buttons").appendTo(".characters");
 };
+
+});
