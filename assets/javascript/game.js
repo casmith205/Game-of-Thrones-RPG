@@ -89,18 +89,21 @@ console.log(enemyCount);
     });
 
 // Choosing a defender
-$(".enemies").on("click", ".buttons", function(x){
-    if(defenderExists){return;};
-    console.log(defenderExists);
-    var clickedDefender = "#" + x.currentTarget.id;
-    for(i=0; i<characters.length; i++) {
-        if(clickedDefender == characters[i].buttonId){
-            $(characters[i].buttonId).appendTo(".defender");
-            defenderChosen = characters[i];
-            defenderExists = true;
+    // If a button is clicked in the enemies div...
+    $(".enemies").on("click", ".buttons", function(x){
+        // If a defender already exists, return
+        if(defenderExists){return;};
+        // Setting a variable to detect the ID of the clicked character
+        var clickedDefender = "#" + x.currentTarget.id;
+        for(i=0; i<characters.length; i++) {
+            // If the clicked character equals the current ID, appedn to defender, define defenderChosen, and change defenderExists to true
+            if(clickedDefender == characters[i].buttonId){
+                $(characters[i].buttonId).appendTo(".defender");
+                defenderChosen = characters[i];
+                defenderExists = true;
+            };
         };
-    };
-});
+    });
 
 $("#attack-btn").on("click", function(){
     attack(characterChosen, defenderChosen);
