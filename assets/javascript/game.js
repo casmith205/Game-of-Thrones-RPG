@@ -85,6 +85,7 @@ console.log(enemyCount);
         for(i=0; i<characters.length; i++) {
             // If the clicked character equals the current ID, appedn to defender, define defenderChosen, and change defenderExists to true
             if(clickedDefender == characters[i].buttonId){
+                $(".defender").html(" ");
                 $(characters[i].buttonId).appendTo(".defender");
                 defenderChosen = characters[i];
                 defenderExists = true;
@@ -93,25 +94,28 @@ console.log(enemyCount);
     });
 
 // What to do when the attack button is clicked
-$("#attack-btn").on("click", function(x){
+$("#attack-btn").on("click", function(){
     if(characterChosen.healthPoints > 0 && defenderChosen.healthPoints > 0) {
         attack(characterChosen, defenderChosen);
-    };
+    } else {
 
-    if(characterChosen.healthPoints <= 0) {
-        $(characterChosen.buttonId).fadeOut();
-        $(".defender").append("You were defeated by " + defenderChosen.name + ". Reset the game to play again")
-    };
+        if(characterChosen.healthPoints <= 0) {
+            $(characterChosen.buttonId).fadeOut();
+            $(".defender").append("You were defeated by " + defenderChosen.name + ". Reset the game to play again");
+            messageReset();
+        };
 
-    
-    if (defenderChosen.healthPoints <= 0 && enemyCount > 0) {
-        defenderExists = false;
-        enemyCount --;
-        $(defenderChosen.buttonId).fadeOut();
-        $(".defender").append("You defeated " + defenderChosen.name + ". Please choose another defender!");
-    } else if (defenderChosen.healthPoints <= 0 && enemyCount <= 0) {
-        $(defenderChosen.buttonId).fadeOut();
-        $(".defender").append("You defeated all of your enemies! Reset the game to play again");
+        if (defenderChosen.healthPoints <= 0 && enemyCount > 0) {
+            defenderExists = false;
+            enemyCount --;
+            messageReset();
+            $(defenderChosen.buttonId).fadeOut();
+            $(".defender").append("You defeated " + defenderChosen.name + ". Please choose another defender!");
+        } else if (defenderChosen.healthPoints <= 0 && enemyCount <= 0) {
+            messageReset();
+            $(defenderChosen.buttonId).fadeOut();
+            $(".defender").append("You defeated all of your enemies! Reset the game to play again");
+        };
     };
 });
 
@@ -126,20 +130,24 @@ function attack (characterChosen, defenderChosen) {
     characterChosen.healthPoints -= defenderChosen.counterAttackPower;
     $(characterChosen.healthId).html(characterChosen.healthPoints);
     $(defenderChosen.healthId).html(defenderChosen.healthPoints);
-    $(".charAttack").html("You caused " + characterChosen.attackPower + " points of damage.");
-    $(".charDefend").html("But, you were hit with a counter attack! You lost " + defenderChosen.counterAttackPower + " health points.");
+    $(".charAttack").text("You caused " + characterChosen.attackPower + " points of damage.");
+    $(".charDefend").text("But, you were hit with a counter attack! You lost " + defenderChosen.counterAttackPower + " health points.");
 };
 
-
+function messageReset (){
+    $(".charAttack").html("` ");
+    $(".charDefend").html("` ");
+}
 
 function gameReset () {
     defenderChosen = null;
     characterChosen = null;
     defenderExists = false;
     playerChoseChar = false;
-    $(".defender").text("");
     enemyCount = (characters.length - 1);
-    $(".buttons").fadeIn();
+    for(i=0; i<characters.length; i++){
+        $(characters[i]).fadeIn();
+    };
     $(".buttons").appendTo(".characters");
 };
 
