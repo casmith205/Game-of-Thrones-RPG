@@ -1,17 +1,16 @@
 $(document).ready(function() {
-// DEFINING VARIABLES
+
+    // DEFINING VARIABLES
 var playerChoseChar = false;
 var characterChosen;
 var defenderExists = false;
 var defenderChosen;
-var winBattle = false;
-var winGame = false;
 
 var jonSnow = { 
     name: "Jon Snow",
     healthPoints: 100,
-    attackPower: 30,
-    counterAttackPower: 30,
+    attackPower: 35,
+    counterAttackPower: 20,
     imgUrl: "assets/images/jonSnow.jpg",
     healthId : "#jonHealth",
     buttonId : "#jonSnow-button"
@@ -22,7 +21,7 @@ var nightKing = {
     name: "The Night King",
     healthPoints: 110,
     attackPower: 50,
-    counterAttackPower:40,
+    counterAttackPower:30,
     imgUrl: "assets/images/nightKing.jpg",
     healthId : "#nightKingHealth",
     buttonId : "#nightKing-button",
@@ -31,7 +30,7 @@ var nightKing = {
 var hound = {
     name: "The Hound",
     healthPoints: 90,
-    attackPower: 10,
+    attackPower: 20,
     counterAttackPower: 5,
     imgUrl: "assets/images/hound.jpg",
     healthId : "#houndHealth",
@@ -42,7 +41,7 @@ var hound = {
 var cersei = {
     name: "Cersei Lannister",
     healthPoints: 80,
-    attackPower: 10,
+    attackPower: 15,
     counterAttackPower: 15,
     imgUrl: "assets/images/cersei.jpg",
     healthId : "#cerseiHealth",
@@ -51,10 +50,8 @@ var cersei = {
 };
 
 var characters = [jonSnow, nightKing, hound, cersei];
-console.log(characters);
 
 var enemyCount = (characters.length - 1); 
-console.log(enemyCount);
 
 // Choosing a character
     // If a button is clicked in the characters div....
@@ -95,27 +92,32 @@ console.log(enemyCount);
 
 // What to do when the attack button is clicked
 $("#attack-btn").on("click", function(){
+    attack(characterChosen, defenderChosen);
+    // If the character and defender both have health remaining...
     if(characterChosen.healthPoints > 0 && defenderChosen.healthPoints > 0) {
-        attack(characterChosen, defenderChosen);
-    } else {
+        $(".charAttack").text("You caused " + characterChosen.attackPower + " points of damage.");
+        $(".charDefend").text("But, you were hit with a counter attack! You lost " + defenderChosen.counterAttackPower + " health points.");
+        
+    };
+    // If the character's health is 0, fade out the picture and relay defeat message
+    if(characterChosen.healthPoints <= 0) {
+        $(characterChosen.buttonId).fadeOut();
+        $(".defender").append("You were defeated by " + defenderChosen.name + ". Reset the game to play again");
+        messageReset();
+    };
 
-        if(characterChosen.healthPoints <= 0) {
-            $(characterChosen.buttonId).fadeOut();
-            $(".defender").append("You were defeated by " + defenderChosen.name + ". Reset the game to play again");
-            messageReset();
-        };
-
-        if (defenderChosen.healthPoints <= 0 && enemyCount > 0) {
-            defenderExists = false;
-            enemyCount --;
-            messageReset();
-            $(defenderChosen.buttonId).fadeOut();
-            $(".defender").append("You defeated " + defenderChosen.name + ". Please choose another defender!");
-        } else if (defenderChosen.healthPoints <= 0 && enemyCount <= 0) {
-            messageReset();
-            $(defenderChosen.buttonId).fadeOut();
-            $(".defender").append("You defeated all of your enemies! Reset the game to play again");
-        };
+    if (defenderChosen.healthPoints <= 0 && enemyCount > 0) {
+        defenderExists = false;
+        enemyCount --;
+        messageReset();
+        $(defenderChosen.buttonId).fadeOut();
+        $(".defender").append("You defeated " + defenderChosen.name + ". Please choose another defender!");
+    }; 
+    
+    if (defenderChosen.healthPoints <= 0 && enemyCount <= 0) {
+        messageReset();
+        $(defenderChosen.buttonId).fadeOut();
+        $(".defender").append("You defeated all of your enemies! Reset the game to play again");
     };
 });
 
@@ -125,30 +127,41 @@ $("#reset-btn").on("click", function(){
 });
 
 // DEFINING FUNCTIONS
+// When the player presses "attack," the following will occur:
 function attack (characterChosen, defenderChosen) {
     defenderChosen.healthPoints -= characterChosen.attackPower;
     characterChosen.healthPoints -= defenderChosen.counterAttackPower;
     $(characterChosen.healthId).html(characterChosen.healthPoints);
     $(defenderChosen.healthId).html(defenderChosen.healthPoints);
-    $(".charAttack").text("You caused " + characterChosen.attackPower + " points of damage.");
-    $(".charDefend").text("But, you were hit with a counter attack! You lost " + defenderChosen.counterAttackPower + " health points.");
+    
 };
 
+// Resetting attack/defend messages 
 function messageReset (){
-    $(".charAttack").html("` ");
-    $(".charDefend").html("` ");
+    $(".charAttack").html(" ");
+    $(".charDefend").html(" ");
 }
 
+// Resetting the entire game
 function gameReset () {
     defenderChosen = null;
     characterChosen = null;
     defenderExists = false;
     playerChoseChar = false;
     enemyCount = (characters.length - 1);
+    jonSnow.healthPoints = 100;
+    nightKing.healthPoints = 110;
+    hound.healthPoints = 90;
+    cersei.healthPoints = 80;
     for(i=0; i<characters.length; i++){
         $(characters[i].buttonId).fadeIn();
     };
     $(".buttons").appendTo(".characters");
+    $(".defender").html(" ");
 };
 
 });
+
+
+
+
