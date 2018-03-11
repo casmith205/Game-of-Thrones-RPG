@@ -13,6 +13,7 @@
 
 $(document).ready(function() {
 // DEFINING VARIABLES
+var playerChoseChar = false;
 var characterChosen;
 var defenderExists = false;
 var defenderChosen;
@@ -22,34 +23,43 @@ var defeated = false;
 var jonSnow = { 
     name: "Jon Snow",
     healthPoints: 100,
-    attackPower: 90,
-    counterAttackPower: 50,
-    imgUrl: "assets/images/jonSnow.jpg"
+    attackPower: 30,
+    counterAttackPower: 30,
+    imgUrl: "assets/images/jonSnow.jpg",
+    healthId : "#jonHealth",
+    buttonId : "#jonSnow-button"
+
 };
 
 var nightKing = {
     name: "The Night King",
     healthPoints: 110,
-    attackPower: 100,
-    counterAttackPower:100,
-    imgUrl: "assets/images/nightKing.jpg"
+    attackPower: 50,
+    counterAttackPower:40,
+    imgUrl: "assets/images/nightKing.jpg",
+    healthId : "#nightKingHealth",
+    buttonId : "#nightKing-button",
 };
 
 var hound = {
     name: "The Hound",
     healthPoints: 90,
-    attackPower: 80,
-    counterAttackPower: 80,
-    imgUrl: "assets/images/hound.jpg"
+    attackPower: 10,
+    counterAttackPower: 5,
+    imgUrl: "assets/images/hound.jpg",
+    healthId : "#houndHealth",
+    buttonId : "#hound-button"
 
 };
 
 var cersei = {
     name: "Cersei Lannister",
     healthPoints: 80,
-    attackPower: 70,
-    counterAttackPower: 60,
-    imgUrl: "assets/images/cersei.jpg"
+    attackPower: 10,
+    counterAttackPower: 15,
+    imgUrl: "assets/images/cersei.jpg",
+    healthId : "#cerseiHealth",
+    buttonId : "#cersei-button"
 
 };
 
@@ -58,81 +68,38 @@ console.log(characters);
 
 var enemyCount = (characters.length - 1); 
 console.log(enemyCount);
-// ON CLICK
 
-// What happens when you click jon-Snow button in Characters
-    // potential way to shorten this:
-    // $(".characters").on("click", characterChosen, function(){
-    //     for(i=0; i<characters.length, i++) {
-    //         if(character[i]!==characterChosen){
-    //         $(""#" + character[i] + "-button"").appendTo(".enemies");
-    //         };
+// Choosing a character
+    // If a button is clicked in the characters div....
+    $(".characters").on("click", ".buttons", function(x){
+        // If the player has already chosen a character, return
+        if(playerChoseChar){return;};
+        // Setting a variable to detect the ID of the clicked character
+        var clickedCharacter = "#" + x.currentTarget.id;
+        for(i=0; i<characters.length; i++) {
+            // If the clicked character does not equal the current ID, append the current ID to "enemies"
+            if(clickedCharacter !== characters[i].buttonId){
+            $(characters[i].buttonId).appendTo(".enemies");
+            // If the clicked character does equal the current ID, set that var equal to characterChosen
+            } else {
+                characterChosen = characters[i];
+                playerChoseChar = true;
+            };
+        };
+    });
 
-$(".buttons").on("click", "#jonSnow-button", function(){
-    $("#nightKing-button").appendTo(".enemies");
-    $("#hound-button").appendTo(".enemies");
-    $("#cersei-button").appendTo(".enemies");
-    characterChosen=jonSnow;
-    console.log(characterChosen);
-});
-    
-
-// What happens when you click night-King button
-$(".buttons").on("click", "#nightKing-button", function(){
-    $("#jonSnow-button").appendTo(".enemies");
-    $("#hound-button").appendTo(".enemies");
-    $("#cersei-button").appendTo(".enemies");
-    characterChosen=nightKing;
-    console.log(characterChosen);
-        
-});
-    
-// What happens when you click hound button
-$(".buttons").on("click", "#hound-button", function(){
-    $("#jonSnow-button").appendTo(".enemies");
-    $("#nightKing-button").appendTo(".enemies");
-    $("#cersei-button").appendTo(".enemies");
-    characterChosen=hound;
-    console.log(characterChosen);
-    
-});
-    
-// What happens when you click cersei button
-$(".buttons").on("click", "#cersei-button", function(){
-    $("#jonSnow-button").appendTo(".enemies");
-    $("#nightKing-button").appendTo(".enemies");
-    $("#hound-button").appendTo(".enemies");
-    characterChosen=cersei;
-    console.log(characterChosen);
-});
-
-// What happens when you click enemies to be the defender
-$(".enemies").on("click","#jonSnow-button", function(){
-    defenderChosen = jonSnow;
-    console.log(defenderChosen);
-    $("#jonSnow-button").appendTo(".defender");
-    
-});
-
-$(".enemies").on("click","#nightKing-button", function(){
-    defenderChosen = nightKing;
-    console.log(defenderChosen);
-    $("#nightKing-button").appendTo(".defender");
-
-});
-
-$(".enemies").on("click","#hound-button", function(){
-    defenderChosen = hound;
-    console.log(defenderChosen);
-    $("#hound-button").appendTo(".defender");
-
-});
-
-$(".enemies").on("click","#cersei-button", function(){
-    defenderChosen = cersei;
-    console.log(defenderChosen);
-    $("#cersei-button").appendTo(".defender");
-
+// Choosing a defender
+$(".enemies").on("click", ".buttons", function(x){
+    if(defenderExists){return;};
+    console.log(defenderExists);
+    var clickedDefender = "#" + x.currentTarget.id;
+    for(i=0; i<characters.length; i++) {
+        if(clickedDefender == characters[i].buttonId){
+            $(characters[i].buttonId).appendTo(".defender");
+            defenderChosen = characters[i];
+            defenderExists = true;
+        };
+    };
 });
 
 $("#attack-btn").on("click", function(){
@@ -146,6 +113,6 @@ $("#attack-btn").on("click", function(){
 function attack (characterChosen, defenderChosen) {
     defenderChosen.healthPoints -= characterChosen.attackPower;
     characterChosen.healthPoints -= defenderChosen.counterAttackPower;
-    $(characterChosen).html(characterChosen.healthPoints);
-    $(defenderChosen).html(defenderChosen.healthPoints);
+    $(characterChosen.healthId).html(characterChosen.healthPoints);
+    $(defenderChosen.healthId).html(defenderChosen.healthPoints);
 }
