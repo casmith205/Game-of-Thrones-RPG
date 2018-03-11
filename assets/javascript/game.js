@@ -1,16 +1,3 @@
-
-// The player will now be able to click the attack button.
-// Whenever the player clicks attack, their character damages the defender. 
-// The opponent will lose HP (health points). These points are displayed at the bottom of the defender's picture. 
-// The opponent character will instantly counter the attack. 
-// When that happens, the player's character will lose some of their HP. 
-// These points are shown at the bottom of the player character's picture.
-// The player will keep hitting the attack button in an effort to defeat their opponent.
-// When the defender's HP is reduced to zero or below, remove the enemy from the defender area. 
-// The player character can now choose a new opponent.
-// The player wins the game by defeating all enemy characters. 
-// The player loses the game the game if their character's HP falls to zero or below.
-
 $(document).ready(function() {
 // DEFINING VARIABLES
 var playerChoseChar = false;
@@ -106,8 +93,29 @@ console.log(enemyCount);
     });
 
 $("#attack-btn").on("click", function(){
-    attack(characterChosen, defenderChosen);
+    if(characterChosen.healthPoints > 0 && defenderChosen.healthPoints > 0) {
+        attack(characterChosen, defenderChosen);
+    };
     
+    if (characterChosen.healthPoints <= 0) {
+        console.log("hi");
+        $(".defender").html("You were defeated by " + defenderChosen.name + ". Reset the game to play again");
+    };
+
+    
+    if (defenderChosen.healthPoints <= 0 && enemyCount > 0) {
+        console.log("bich");
+        defenderExists = false;
+        enemyCount --;
+        $(".defender").text("You defeated " + defenderChosen.name + ". Please choose another defender!");
+    } else if (defenderChosen.healthPoints <= 0 && enemyCount <= 0) {
+        console.log("lol");
+        $(".defender").text("You defeated all of your enemies! Reset the game to play again");
+    }
+});
+
+$("#reset-btn").on("click", function(){
+    gameReset();
 });
 
 });
@@ -118,4 +126,16 @@ function attack (characterChosen, defenderChosen) {
     characterChosen.healthPoints -= defenderChosen.counterAttackPower;
     $(characterChosen.healthId).html(characterChosen.healthPoints);
     $(defenderChosen.healthId).html(defenderChosen.healthPoints);
-}
+    $(".charAttack").html("You caused " + characterChosen.attackPower + " points of damage.");
+    $(".charDefend").html("But, you were hit with a counter attack! You lost " + defenderChosen.counterAttackPower + " health points.");
+};
+
+
+function gameReset () {
+    defenderChosen = null;
+    characterChosen = null;
+    defenderExists = false;
+    playerChoseChar = false;
+    $(".buttons").appendTo(".characters");
+    $(".defender").text("");
+};
