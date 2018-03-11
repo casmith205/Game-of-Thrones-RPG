@@ -35,3 +35,7 @@ img{
     text-align: center;
     display: flex;
 }
+
+.attackMessages{
+    color: black;
+}

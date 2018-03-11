@@ -93,32 +93,26 @@ var enemyCount = (characters.length - 1);
 // What to do when the attack button is clicked
 $("#attack-btn").on("click", function(){
     attack(characterChosen, defenderChosen);
-    // If the character and defender both have health remaining...
-    if(characterChosen.healthPoints > 0 && defenderChosen.healthPoints > 0) {
-        $(".charAttack").text("You caused " + characterChosen.attackPower + " points of damage.");
-        $(".charDefend").text("But, you were hit with a counter attack! You lost " + defenderChosen.counterAttackPower + " health points.");
+    if(enemyCount >= 0){
+        // If the character's health is 0, fade out the picture and relay defeat message
+        if(characterChosen.healthPoints <= 0) {
+            $(characterChosen.buttonId).fadeOut();
+            $(".attackMessages").html("You were defeated by " + defenderChosen.name + ". Reset the game to play again");
+            messageReset(); 
+        }
+
+       else if (defenderChosen.healthPoints <= 0) {
+            defenderExists = false;
+            enemyCount --;
+            $(defenderChosen.buttonId).fadeOut();
+            $(".attackMessages").html("You defeated " + defenderChosen.name + ". Please choose another defender!");   
+            messageReset();  
+        }
         
-    };
-    // If the character's health is 0, fade out the picture and relay defeat message
-    if(characterChosen.healthPoints <= 0) {
-        $(characterChosen.buttonId).fadeOut();
-        $(".defender").append("You were defeated by " + defenderChosen.name + ". Reset the game to play again");
-        messageReset();
+    } else {
+        $(".defender").text("You defeated all of your enemies! Reset the game to play again");
     };
 
-    if (defenderChosen.healthPoints <= 0 && enemyCount > 0) {
-        defenderExists = false;
-        enemyCount --;
-        messageReset();
-        $(defenderChosen.buttonId).fadeOut();
-        $(".defender").append("You defeated " + defenderChosen.name + ". Please choose another defender!");
-    }; 
-    
-    if (defenderChosen.healthPoints <= 0 && enemyCount <= 0) {
-        messageReset();
-        $(defenderChosen.buttonId).fadeOut();
-        $(".defender").append("You defeated all of your enemies! Reset the game to play again");
-    };
 });
 
 // What to do when the reset button is clicked 
@@ -133,6 +127,8 @@ function attack (characterChosen, defenderChosen) {
     characterChosen.healthPoints -= defenderChosen.counterAttackPower;
     $(characterChosen.healthId).html(characterChosen.healthPoints);
     $(defenderChosen.healthId).html(defenderChosen.healthPoints);
+    $(".attackMessages").html("You caused " + characterChosen.attackPower + " points of damage. <br>" +
+    " But, you were hit with a counter attack! You lost " + defenderChosen.counterAttackPower + " health points.");
     
 };
 
@@ -155,9 +151,7 @@ function gameReset () {
     cersei.healthPoints = 80;
     for(i=0; i<characters.length; i++){
         $(characters[i].buttonId).fadeIn();
-    };
-    function health (){
-    $(characters.healthId).html(healthPoints);
+        $(characters[i].healthId).html(characters[i].healthPoints);
     };
     $(".buttons").appendTo(".characters");
     $(".defender").html(" ");
