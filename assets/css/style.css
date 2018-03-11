@@ -1,5 +1,7 @@
 body{
     margin: 20px;
+    background-image: url(../images/dragon.jpg);
+    font-weight: bolder;
 }
 
 img{
@@ -8,37 +10,16 @@ img{
 }
 
 .buttons{
+    display: inline-block;
+    background: whitesmoke;
     text-align: center;
-    display: flex;
-}
-
-#jonSnow-button{
     padding: 10px;
     margin : 10px;
     border:solid thick grey;
     width: 250px;
+    height: 175px;
 }
 
-#nightKing-button{
-    padding: 10px;
-    margin : 10px;
-    border:solid thick grey;
-    width: 250px;
-}
-
-#hound-button{
-    padding: 10px;
-    margin : 10px;
-    border:solid thick grey;
-    width: 250px;
-}
-
-#cersei-button{
-    padding: 10px;
-    margin : 10px;
-    border:solid thick grey;
-    width: 250px;
-}
 
 .enemies{
     text-align: center;
@@ -47,6 +28,7 @@ img{
 
 #enemytitle{
     text-align: left;
+    width: 200px;
 }
 
 .defender{

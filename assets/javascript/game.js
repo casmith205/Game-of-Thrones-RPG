@@ -156,6 +156,9 @@ function gameReset () {
     for(i=0; i<characters.length; i++){
         $(characters[i].buttonId).fadeIn();
     };
+    function health (){
+    $(characters.healthId).html(healthPoints);
+    };
     $(".buttons").appendTo(".characters");
     $(".defender").html(" ");
 };
