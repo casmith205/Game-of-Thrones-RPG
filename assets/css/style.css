@@ -48,3 +48,8 @@ img{
 #enemytitle{
     text-align: left;
 }
+
+.defender{
+    text-align: center;
+    display: flex;
+}

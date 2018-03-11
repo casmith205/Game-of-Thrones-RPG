@@ -16,21 +16,21 @@
     <div class ="characters">
         <div class="h6">Your character</div>
         <div class="buttons">
-            <div id="jonSnow-button">Jon Snow <br>
+            <div id="jonSnow-button" value="jonSnow">Jon Snow <br>
                 <img src="assets/images/jonSnow.jpg">
-                <p id="jonHealth"></p>
+                <p id="jonHealth">100</p>
             </div>
-            <div id="nightKing-button">Night King <br>
+            <div id="nightKing-button" value="nightKing">Night King <br>
                 <img src="assets/images/nightKing.jpg">
-                <p id="nightKingHealth"></p>
+                <p id="nightKingHealth">110</p>
             </div>
-            <div id="hound-button">The Hound <br>
+            <div id="hound-button" value="hound">The Hound <br>
                 <img src="assets/images/hound.jpg">
-                <p id="houndHealth"></p>
+                <p id="houndHealth">90</p>
             </div>
-            <div id="cersei-button">Cersei Lannister <br>
+            <div id="cersei-button" value="cersei">Cersei Lannister <br>
                 <img src="assets/images/cersei.jpg">
-                <p id="cerseiHealth"></p>
+                <p id="cerseiHealth">80</p>
             </div>
         </div>
     </div>
@@ -38,10 +38,14 @@
     <div class="enemies"><br> </div>
     <div class="fight">Fight section
         <div class = "attack">
-            <button type="button" class="btn btn-warning">Attack</button>
+            <button  id="attack-btn" type="button" class="btn btn-warning">Attack</button>
         </div>
     </div>
-    <div class="defender">Defender</div>
+
+    <br>
+    
+    <p id="defendertitle">Defender</p> 
+    <div class="defender"></div>
 
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
