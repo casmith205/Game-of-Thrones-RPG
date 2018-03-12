@@ -1,12 +1,13 @@
 body{
     margin: 20px;
-    background-image: url(../images/dragon.jpg);
+    background: #F5F5F5 url(../images/ice.jpg) no-repeat right top;
     font-weight: bolder;
 }
 
 img{
     width: 200px;
     height: 100px;
+
 }
 
 .buttons{

@@ -90,9 +90,9 @@ ominousSound.play();
         for(i=0; i<characters.length; i++) {
             // If the clicked character equals the current ID, appedn to defender, define defenderChosen, and change defenderExists to true
             if(clickedDefender == characters[i].buttonId){
-                $(".defender").html(" ");
                 $(characters[i].buttonId).appendTo(".defender");
                 $(characters[i].buttonId).css("background-color", "black");
+                $(characters[i].buttonId).css("color", "#F5F5F5");
                 defenderChosen = characters[i];
                 defenderExists = true;
             };
@@ -101,14 +101,13 @@ ominousSound.play();
 
 // What to do when the attack button is clicked
 $("#attack-btn").on("click", function(){
+    if(!defenderExists){return;};
     attack(characterChosen, defenderChosen);
-    if(enemyCount >= 0){
         // If the character's health is 0, fade out the picture and relay defeat message
         if(characterChosen.healthPoints <= 0) {
             dragonSound.play();
             $(characterChosen.buttonId).fadeOut();
             $(".attackMessages").html("You were defeated by " + defenderChosen.name + ". Reset the game to play again");
-            messageReset(); 
         }
 
        else if (defenderChosen.healthPoints <= 0) {
@@ -116,15 +115,14 @@ $("#attack-btn").on("click", function(){
             defenderExists = false;
             enemyCount --;
             $(defenderChosen.buttonId).fadeOut();
-            $(".attackMessages").html("You defeated " + defenderChosen.name + ". Please choose another defender!");   
-            messageReset();  
-        }
-        
-    } else {
-        $(".defender").text("You defeated all of your enemies! Reset the game to play again");
-        winSound.play();
-    };
-
+             
+            if(enemyCount>0){
+            $(".attackMessages").html("You defeated " + defenderChosen.name + ". Please choose another defender!");
+            } else {
+                $(".attackMessages").text("You defeated all of your enemies! Reset the game to play again");
+                winSound.play();
+            }
+        };
 });
 
 // What to do when the reset button is clicked 
@@ -145,12 +143,6 @@ function attack (characterChosen, defenderChosen) {
     
 };
 
-// Resetting attack/defend messages 
-function messageReset (){
-    $(".charAttack").html(" ");
-    $(".charDefend").html(" ");
-}
-
 // Resetting the entire game
 function gameReset () {
     defenderChosen = null;
@@ -166,13 +158,10 @@ function gameReset () {
         $(characters[i].buttonId).fadeIn();
         $(characters[i].healthId).html(characters[i].healthPoints);
         $(characters[i].buttonId).css("background-color", "#F5F5F5");
+        $(characters[i].buttonId).css("color", "black");
     };
     $(".buttons").appendTo(".characters");
     $(".defender").html(" ");
 };
 
 });
-
-
-
-
