@@ -171,9 +171,6 @@ function gameReset () {
     $(".defender").html(" ");
 };
 
-// Attack sound
-
-
 });
 
 
