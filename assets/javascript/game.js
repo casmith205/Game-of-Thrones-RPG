@@ -5,6 +5,11 @@ var playerChoseChar = false;
 var characterChosen;
 var defenderExists = false;
 var defenderChosen;
+var swordSound = new Audio ("assets/sounds/sword.mp3");
+var dragonSound = new Audio ("assets/sounds/dragon_roar.mp3");
+var ominousSound = new Audio ("assets/sounds/ominous.mp3");
+var successSound = new Audio ("assets/sounds/success.mp3");
+var winSound = new Audio ("assets/sounds/win.mp3");
 
 var jonSnow = { 
     name: "Jon Snow",
@@ -53,6 +58,8 @@ var characters = [jonSnow, nightKing, hound, cersei];
 
 var enemyCount = (characters.length - 1); 
 
+ominousSound.play();
+
 // Choosing a character
     // If a button is clicked in the characters div....
     $(".characters").on("click", ".buttons", function(x){
@@ -64,6 +71,7 @@ var enemyCount = (characters.length - 1);
             // If the clicked character does not equal the current ID, append the current ID to "enemies"
             if(clickedCharacter !== characters[i].buttonId){
             $(characters[i].buttonId).appendTo(".enemies");
+            $(characters[i].buttonId).css("background-color", "#B22222");
             // If the clicked character does equal the current ID, set that var equal to characterChosen
             } else {
                 characterChosen = characters[i];
@@ -84,6 +92,7 @@ var enemyCount = (characters.length - 1);
             if(clickedDefender == characters[i].buttonId){
                 $(".defender").html(" ");
                 $(characters[i].buttonId).appendTo(".defender");
+                $(characters[i].buttonId).css("background-color", "black");
                 defenderChosen = characters[i];
                 defenderExists = true;
             };
@@ -96,12 +105,14 @@ $("#attack-btn").on("click", function(){
     if(enemyCount >= 0){
         // If the character's health is 0, fade out the picture and relay defeat message
         if(characterChosen.healthPoints <= 0) {
+            dragonSound.play();
             $(characterChosen.buttonId).fadeOut();
             $(".attackMessages").html("You were defeated by " + defenderChosen.name + ". Reset the game to play again");
             messageReset(); 
         }
 
        else if (defenderChosen.healthPoints <= 0) {
+            successSound.play();
             defenderExists = false;
             enemyCount --;
             $(defenderChosen.buttonId).fadeOut();
@@ -111,6 +122,7 @@ $("#attack-btn").on("click", function(){
         
     } else {
         $(".defender").text("You defeated all of your enemies! Reset the game to play again");
+        winSound.play();
     };
 
 });
@@ -123,6 +135,7 @@ $("#reset-btn").on("click", function(){
 // DEFINING FUNCTIONS
 // When the player presses "attack," the following will occur:
 function attack (characterChosen, defenderChosen) {
+    swordSound.play();
     defenderChosen.healthPoints -= characterChosen.attackPower;
     characterChosen.healthPoints -= defenderChosen.counterAttackPower;
     $(characterChosen.healthId).html(characterChosen.healthPoints);
@@ -152,10 +165,14 @@ function gameReset () {
     for(i=0; i<characters.length; i++){
         $(characters[i].buttonId).fadeIn();
         $(characters[i].healthId).html(characters[i].healthPoints);
+        $(characters[i].buttonId).css("background-color", "#F5F5F5");
     };
     $(".buttons").appendTo(".characters");
     $(".defender").html(" ");
 };
+
+// Attack sound
+
 
 });
 
