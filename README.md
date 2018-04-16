@@ -10,10 +10,10 @@ In the game of thrones, you win, or you die. The same is true here. Pick your ch
 4) Continue until all enemies are defeated. 
 
 ## Motivation
-Project used to demonstrate JavaScript and JQuery.
+Project used to demonstrate JavaScript and jQuery.
 
 ## Technologies Used 
-HTML, CSS, Bootstrap, JavaScript, JQuery
+HTML, CSS, Bootstrap, JavaScript, jQuery
 
 ## License 
 MIT License
